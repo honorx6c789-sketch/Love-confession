@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>គេហទំព័រសារភាពស្នេហ៍</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe6e6;
+            text-align: center;
+            padding: 50px;
+            transition: background-color 0.5s;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #ff4d4d;
+            margin-bottom: 30px;
+        }
+        
+        p {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        #yesBtn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        #noBtn {
+            background-color: #f44336;
+            color: white;
+            position: relative;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+        }
+        
+        .heart {
+            color: #ff4d4d;
+            font-size: 24px;
+        }
+
+        /* រចនាបថសម្រាប់វីដេអូ */
+        #loveVideo {
+            display: none; /* លាក់វីដេអូសិន មុនពេលចុច Yes */
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="questionBox">
+            <h1>ព្រមធ្វើសង្សារខ្ញុំទេ?<hr>❤️ DO YOU LOVE ME ❤️ <span class="heart"></span></h1>
+            <p style="font-family: Arial Black;">Yes or No</p>
+            
+            <div class="buttons">
+                <button id="yesBtn">Yes</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
+
+        <!-- ផ្នែកបង្ហាញវីដេអូ -->
+        <div id="videoBox" style="display: none;">
+            <h1>អរគុណដែលព្រមស្រឡាញ់បង! ❤️</h1>
+            <!-- ប្តូរឈ្មោះ "video.mp4" ទៅតាមឈ្មោះឯកសារវីដេអូរបស់អ្នក -->
+            <video id="loveVideo" controls>
+                <source src="Tenasong.mp4" type="video/mp4">
+                កម្មវិធីរុករករបស់អ្នកមិនគាំទ្រការចាក់វីដេអូទេ។
+            </video>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const questionBox = document.getElementById('questionBox');
+            const videoBox = document.getElementById('videoBox');
+            const loveVideo = document.getElementById('loveVideo');
+            const body = document.body;
+
+            // អនុគមន៍បង្កើតពណ៌ផ្ទៃខ្នងស្រទន់ៗដោយចៃដន្យ
+            function getRandomPastelColor() {
+                const hue = Math.floor(Math.random() * 360);
+                return `hsl(${hue}, 100%, 92%)`;
+            }
+            
+            // ពេលចុចប៊ូតុង Yes
+            yesBtn.addEventListener('click', function() {
+                questionBox.style.display = 'none'; // លាក់សំណួរ និងប៊ូតុង
+                noBtn.style.display = 'none';       // លាក់ប៊ូតុង No
+                videoBox.style.display = 'block';   // បង្ហាញប្រអប់វីដេអូ
+                loveVideo.style.display = 'block';  // បង្ហាញវីដេអូ
+                loveVideo.play();                   // ចាក់វីដេអូដោយស្វ័យប្រវត្តិ
+            });
+
+            // អនុគមន៍ធ្វើឱ្យប៊ូតុង No រត់គេច
+            function moveNoButton() {
+                const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+                const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+                
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = randomX + 'px';
+                noBtn.style.top = randomY + 'px';
+                
+                body.style.backgroundColor = getRandomPastelColor();
+            }
+            
+            // ពេលដាក់ Mouse លើ ឬ ចុចប៊ូតុង No
+            noBtn.addEventListener('mouseover', moveNoButton);
+            noBtn.addEventListener('click', moveNoButton);
+        });
+    </script>
+</body>
+</html>
